@@ -8,22 +8,58 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+//@Service
+//@Data
+//public class StudentService {
+//    @Autowired
+//    private StudentRepository studentRepository;
+//    public Student registerStudent(Student student) {
+//        return studentRepository.save(student);
+//    }
+//
+//    public String login(String email, String password) {
+//        Student s = studentRepository.findByEmail(email)
+//                .orElseThrow(() -> new RuntimeException("Email not found"));
+//
+//        if (!s.getPassword().equals(password)) {
+//            return "Incorrect password";
+//        }
+//        return "Login successful";
+//    }
+//
+//    public List<Student> getAllStudents() {
+//        return studentRepository.findAll();
+//    }
+//
+//    public Student getStudent(Long id) {
+//        return studentRepository.findById(id).orElseThrow();
+//    }
+//}
+//
+//
 @Service
 @Data
 public class StudentService {
+
     @Autowired
     private StudentRepository studentRepository;
+
     public Student registerStudent(Student student) {
         return studentRepository.save(student);
     }
 
     public String login(String email, String password) {
-        Student s = studentRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Email not found"));
+
+        Student s = studentRepository.findByEmail(email).orElse(null);
+
+        if (s == null) {
+            return "Email does not match";
+        }
 
         if (!s.getPassword().equals(password)) {
             return "Incorrect password";
         }
+
         return "Login successful";
     }
 
@@ -35,5 +71,3 @@ public class StudentService {
         return studentRepository.findById(id).orElseThrow();
     }
 }
-
-
