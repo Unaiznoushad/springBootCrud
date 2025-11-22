@@ -31,9 +31,10 @@ public class AdmissionController {
         return admissionService.countStudents(courseId);
     }
 
-    @GetMapping("/remaining/{admissionId}")
-    public long remaining(@PathVariable Long admissionId) {
-        return admissionService.remainingDays(admissionId);
+    @GetMapping("/remaining/{id}")
+    public String remainingDays(@PathVariable Long id) {
+        return admissionService.remainingDays(id);
     }
+
 }
 

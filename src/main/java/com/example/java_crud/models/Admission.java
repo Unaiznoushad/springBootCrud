@@ -1,17 +1,15 @@
 package com.example.java_crud.models;
 
-import jakarta.persistence.*;
-import lombok.Data;
 
-import java.util.Date;
+import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "admission")
-@Data
 public class Admission {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long admission_id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long admissionId;
+
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
@@ -24,6 +22,20 @@ public class Admission {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    private Date admission_date;
-    private Date completion_date;
+    private LocalDate admissionDate;
+    private LocalDate completionDate;
+
+    // getters/setters
+    public Long getAdmissionId() { return admissionId;}
+    public void setAdmissionId(Long admissionId) { this.admissionId = admissionId;}
+    public Student getStudent() { return student;}
+    public void setStudent(Student student) { this.student = student;}
+    public Institute getInstitute() { return institute;}
+    public void setInstitute(Institute institute) { this.institute = institute;}
+    public Course getCourse() { return course;}
+    public void setCourse(Course course) { this.course = course;}
+    public LocalDate getAdmissionDate() { return admissionDate;}
+    public void setAdmissionDate(LocalDate admissionDate) { this.admissionDate = admissionDate;}
+    public LocalDate getCompletionDate() { return completionDate;}
+    public void setCompletionDate(LocalDate completionDate) { this.completionDate = completionDate;}
 }

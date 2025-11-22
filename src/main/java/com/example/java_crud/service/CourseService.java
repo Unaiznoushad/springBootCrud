@@ -22,16 +22,15 @@ public class CourseService {
 
     public List<Course> getCoursesByInstitute(Long instituteId) {
         return courseRepository.findAll().stream()
-                .filter(c -> c.getInstitute().getInstitute_id().equals(instituteId))
+                .filter(c -> c.getInstitute().getInstituteId().equals(instituteId))
                 .toList();
     }
 
     public Course addCourse(Course course) {
 
-        // 1. extract institute id from request
-        Long instituteId = course.getInstitute().getInstitute_id();
 
-        // 2. fetch full institute object from DB
+        Long instituteId = course.getInstitute().getInstituteId();
+
         Institute institute = instituteRepository.findById(instituteId)
                 .orElseThrow(() -> new RuntimeException("Institute not found"));
 

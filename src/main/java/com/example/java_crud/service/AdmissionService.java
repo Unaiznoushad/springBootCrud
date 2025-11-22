@@ -1,3 +1,4 @@
+
 package com.example.java_crud.service;
 
 import com.example.java_crud.models.Admission;
@@ -8,13 +9,13 @@ import com.example.java_crud.repository.AdmissionRepository;
 import com.example.java_crud.repository.CourseRepository;
 import com.example.java_crud.repository.InstituteRepository;
 import com.example.java_crud.repository.StudentRepository;
+
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -44,32 +45,44 @@ public class AdmissionService {
         admission.setInstitute(institute);
         admission.setCourse(course);
 
-        admission.setAdmission_date(new Date());
+        // LocalDate today
+        LocalDate today = LocalDate.now();
+        admission.setAdmissionDate(today);
 
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        cal.add(Calendar.DAY_OF_MONTH, course.getDuration_days());
-        admission.setCompletion_date(cal.getTime());
+        // completion date = now + durationDays
+        LocalDate completion = today.plusDays(course.getDurationDays());
+        admission.setCompletionDate(completion);
 
         return admissionRepository.save(admission);
     }
 
     public List<Admission> getStudentAdmissions(Long studentId) {
         return admissionRepository.findAll().stream()
-                .filter(a -> a.getStudent().getStudent_id().equals(studentId))
+                .filter(a -> a.getStudent().getStudentId().equals(studentId))
                 .toList();
     }
 
     public long countStudents(Long courseId) {
         return admissionRepository.findAll().stream()
-                .filter(a -> a.getCourse().getCourse_id().equals(courseId))
+                .filter(a -> a.getCourse().getCourseId().equals(courseId))
                 .count();
     }
 
-    public long remainingDays(Long admissionId) {
-        Admission admission = admissionRepository.findById(admissionId).orElseThrow();
-        long diff = admission.getCompletion_date().getTime() - new Date().getTime();
-        return diff / (1000 * 60 * 60 * 24);
-    }
-}
+    public String remainingDays(Long admissionId) {
 
+        Admission admission = admissionRepository.findById(admissionId)
+                .orElse(null);
+
+        if (admission == null) {
+            return "Admission ID not found";
+        }
+
+        LocalDate today = LocalDate.now();
+        LocalDate completion = admission.getCompletionDate();
+
+        long days = ChronoUnit.DAYS.between(today, completion);
+
+        return "Remaining days: " + days;
+    }
+
+}
