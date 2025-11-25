@@ -33,12 +33,5 @@ public class StudentService {
 
         return "Login successful";
     }
-
-    public List<Student> getAllStudents() {
-        return studentRepository.findAll();
-    }
-
-    public Student getStudent(Long id) {
-        return studentRepository.findById(id).orElseThrow();
-    }
 }
+

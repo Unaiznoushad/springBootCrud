@@ -1,7 +1,5 @@
 package com.example.java_crud.models;
 
-
-
 import jakarta.persistence.*;
 
 @Entity

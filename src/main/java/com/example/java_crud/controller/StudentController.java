@@ -22,13 +22,4 @@ public class StudentController {
     public String login(@RequestBody Student student){
         return studentService.login(student.getEmail(),student.getPassword());
     }
-
-    @GetMapping("/all")
-    public List<Student>getAll(){
-        return studentService.getAllStudents();
-    }
-    @GetMapping("/{id}")
-    public Student getOne(@PathVariable Long id){
-        return studentService.getStudent(id);
-    }
 }

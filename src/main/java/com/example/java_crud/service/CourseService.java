@@ -40,6 +40,4 @@ public class CourseService {
         // 4. save course
         return courseRepository.save(course);
     }
-
 }
-
