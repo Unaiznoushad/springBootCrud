@@ -3,6 +3,7 @@ package com.example.java_crud.models;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "admission")
@@ -24,6 +25,8 @@ public class Admission {
 
     private LocalDate admissionDate;
     private LocalDate completionDate;
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt;
 
     // getters/setters
     public Long getAdmissionId() { return admissionId;}
@@ -38,4 +41,10 @@ public class Admission {
     public void setAdmissionDate(LocalDate admissionDate) { this.admissionDate = admissionDate;}
     public LocalDate getCompletionDate() { return completionDate;}
     public void setCompletionDate(LocalDate completionDate) { this.completionDate = completionDate;}
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    // 🔑 FIX 2: Add Getters/Setters for updatedAt
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 }

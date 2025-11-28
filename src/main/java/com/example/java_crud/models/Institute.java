@@ -2,6 +2,8 @@ package com.example.java_crud.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -14,6 +16,8 @@ public class Institute {
     private String address;
     private String contactNo;
 
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt;
     @OneToMany(mappedBy = "institute", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Course> courses;
@@ -28,4 +32,11 @@ public class Institute {
     public void setContactNo(String contactNo) { this.contactNo = contactNo; }
     public List<Course> getCourses() { return courses; }
     public void setCourses(List<Course> courses) { this.courses = courses; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    // 🔑 FIX: Add Getters/Setters for updatedAt
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+
 }
